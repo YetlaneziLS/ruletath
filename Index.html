@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=""width-device-width, inicial-scale="1.0">
+
+    <title> La ruleta TS </title>
+    
+
+    
+    <script src="js/Winwheel.min.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+</head>
+<body>
+    <h1> LA RULETA RUSA DE TH </h1>
+    <body background="img/guillotina.jpg">
+        
+    <style>
+        
+    </style>
+   
+    <canvas id="canvas" height="400" widht="400"></canvas>
+    </br>
+    </br>
+    <input type="button" value="Girar" onclick = "RuletaTS.startAnimation();"/>
+    <br/>
+    <br/>
+    <script>
+        var RuletaTS= new Winwheel({
+            'numSegments': 12,
+            'outerRadius': 150,
+            'segments': [
+                 {'fillStyle': '#0CE8EF', 'text': 'Luis'},
+                 {'fillStyle': '#F3F9FF', 'text': 'Ila'},
+                 {'fillStyle': '#3e5f8a', 'text': 'Omar'},
+                 {'fillStyle': '#DA81F5', 'text': 'Pao'},
+                 {'fillStyle': '#bbff00', 'text': 'Erick'},
+                 {'fillStyle': '#FE83C6', 'text': 'Mich'},
+                 {'fillStyle': '#6433FF', 'text': 'Dave'},
+                 {'fillStyle': '#C2DED1', 'text': 'Clau'}, 
+                 {'fillStyle': '#e8cc15', 'text': 'Edu'},
+                 {'fillStyle': '#800080', 'text': 'Ilse'}, 
+                 {'fillStyle': '#00AFB5', 'text': 'Diego'},
+                 {'fillStyle': '#293462', 'text': 'Yet'},
+            ],
+
+            'animation':
+            {
+                'type': 'spinToStop', 
+                'duration': 6,
+                'callbackFinished': 'Message()',
+                'callbackAfter': 'drawIndicator()',
+            },
+        });
+
+        function Message()
+        {
+            var Selection = RuletaTS.getIndicatedSegment();
+            alert ("El sentenciado es: " + Selection.text + "!");
+            //Esto reinicia la ruleta
+            RuletaTS.stopAnimation(false);
+            RuletaTS.rotationAngle = 0;
+            RuletaTS.draw();
+            drawIndicator();
+        }
+
+        drawIndicator();
+        function drawIndicator() {
+         var ctx = RuletaTS.ctx;
+            //Esto crea el indicador arriba de la ruleta
+            ctx.strokeStyle ='Red';
+            ctx.fillStyle ='Red';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(120,30);
+            ctx.lineTo(180,30)
+            ctx.lineTo(150,60);
+            ctx.lineTo(120,30);
+            ctx.stroke();
+            ctx.fill();
+        
+            function ReadElements() {
+                  txtElements=$('#Elements').val().trim();
+                  var Elements = txtElements.split('\n');
+                  var RouletteElements= [];
+	          Elements.forEach(function (Element) {
+                      if(Element){
+                        RouletteElements.push({ 'fillStyle': "#" + ((1 << 24) * Math.random() | 0).toString(16), 'text': Element });
+                  }
+                  });
+                  DrawRoulette(RouletteElements);
+	     } 
+ 
+        }
+
+    </script>
+</body>
+</html>
